@@ -1,0 +1,57 @@
+﻿@page "/download"
+
+<AddUrl UrlAdded="UrlToDownload" CanAddUrl="CanAddUrl" />
+
+<div class="row">
+    <h3>Downloads</h3>
+</div>
+
+<div class="row">
+    @foreach (var download in Downloads)
+    {
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <header class="card-header">
+                    <h4>@download.FileNameWithoutExtension</h4>
+                        @if (download.Progress.HasValue && !download.Error && !download.IsCompleted)
+                        {
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                     style="@($"width: {download.Progress ?? 0}%")" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        else if (download.Error)
+                        {
+                            <span class="badge badge-danger">
+                                @download.ErrorMessage
+                            </span>
+                        }
+                        else if (download.IsCompleted)
+                        {
+                            <span class="badge badge-success">Downloaded</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-info">Waiting</span>
+                        }
+                </header>
+                <content class="card-body">
+                    <p>Teste</p>
+
+                
+                </content>
+                <footer class="card-footer">
+                    @if (download.IsCompleted)
+                    {
+                        <button type="button" class="btn btn-danger" @onclick="() => DeleteDownload(download.Id)">
+                            <span class="oi oi-trash" aria-hidden="true"></span>
+                        </button>
+                        <a href="@($"/api/download/{download.Id}/{download.FileName}")" class="btn btn-info" download="download">
+                            <span class="oi oi-data-transfer-download" aria-hidden="true"></span>
+                        </a>
+                    }
+                </footer>
+            </div>
+        </div>
+    }
+</div>
