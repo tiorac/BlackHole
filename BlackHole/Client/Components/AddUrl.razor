@@ -1,0 +1,11 @@
+﻿@if (_showField)
+{
+    <div class="form-group">
+        <InputText @ref="_inputText" @bind-Value="Url" placeholder="Adicione a URL" DisplayName="Url" @onblur="CancelAddUrl" />
+        <button class="btn btn-primary" @onclick="FinalizeAddUrl">+</button>
+    </div>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="ShowField">Add Url</button>
+}
