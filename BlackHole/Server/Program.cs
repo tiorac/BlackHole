@@ -9,8 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
+builder.Services.AddSingleton<ErrorHandler>();
 builder.Services.AddSingleton<ServiceControl>();
 builder.Services.AddHostedService<ServiceWorker>();
+builder.Services.AddSingleton<ServiceRepository>();
 
 var app = builder.Build();
 
@@ -37,5 +39,8 @@ app.MapHub<ServiceQueueHub>("/queue");
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+var serviceControl = app.Services.GetService<ServiceControl>();
+serviceControl?.Load();
 
 app.Run();

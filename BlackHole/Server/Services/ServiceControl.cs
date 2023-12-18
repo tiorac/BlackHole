@@ -5,11 +5,12 @@ namespace BlackHole.Server.Services
 {
     public class ServiceControl
     {
-        public ServiceControl(IConfiguration configuration)
+        public ServiceControl(IConfiguration configuration, ServiceRepository serviceRepository)
         {
             Services = [];
             Queue = [];
             _configuration = configuration;
+            _serviceRepository = serviceRepository;
 
             CreateDefaultServices();
         }
@@ -38,11 +39,17 @@ namespace BlackHole.Server.Services
                  .ToList()
                  .AsReadOnly();
 
+        private ServiceRepository _serviceRepository;
+
         private void CreateDefaultServices()
         {
-            Services.Add(new Downloader(_configuration));
+            Services.Add(new Downloader(_configuration, _serviceRepository));
         }
 
+        public void Load()
+        {
+            Queue = _serviceRepository.GetAll();
+        }
 
         public IEnumerable<T> GetQueueByType<T>() 
             where T : ServiceData
@@ -70,6 +77,7 @@ namespace BlackHole.Server.Services
             return null;
         }
 
+
         public ServiceData? Get(Guid id)
         {
             return Queue.FirstOrDefault(s => s.Id == id);
@@ -86,6 +94,7 @@ namespace BlackHole.Server.Services
             if (Queue.Contains(service))
                 return false;
 
+            _serviceRepository.Save(service);
             Queue.Add(service);
             return true;
         }
@@ -95,7 +104,10 @@ namespace BlackHole.Server.Services
             var service = Queue.FirstOrDefault(s => s.Id == id);
 
             if (service != null)
+            {
+                _serviceRepository.Remove(id);
                 return Queue.Remove(service);
+            }
 
             return false;
         }
@@ -105,6 +117,7 @@ namespace BlackHole.Server.Services
             if (!service.IsProcessing
                 && Queue.Contains(service))
             {
+                _serviceRepository.Remove(service.Id);
                 Queue.Remove(service);
                 return true;
             }

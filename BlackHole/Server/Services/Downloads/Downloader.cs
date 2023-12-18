@@ -2,15 +2,17 @@
 {
     public class Downloader : IService
     {
-        public Downloader(IConfiguration configuration)
+        public Downloader(IConfiguration configuration, ServiceRepository serviceRepository)
         {
             _downloads = new();
             _configuration = configuration;
+            _serviceRepository = serviceRepository;
             CreateDefaultDownloads();
         }
 
         private List<IDownloader> _downloads;
         private readonly IConfiguration _configuration;
+        private readonly ServiceRepository _serviceRepository;
 
         private void CreateDefaultDownloads()
         {
@@ -57,6 +59,8 @@
                 downloadData.ErrorMessage = ex.Message;
                 updated(downloadData);
             }
+
+            _serviceRepository.Update(downloadData);
         }
 
         private string GetDestinationFileName(string originUrl)

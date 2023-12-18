@@ -1,0 +1,11 @@
+﻿@page "/system"
+
+<h3>System</h3>
+
+@if (Config != null)
+{
+    @foreach (var c in Config)
+    {
+        <p><strong>@(c.Key)</strong>: @(c.Value)</p>
+    }
+}

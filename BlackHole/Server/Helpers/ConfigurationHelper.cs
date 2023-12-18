@@ -1,4 +1,5 @@
-﻿namespace BlackHole.Server.Helpers
+﻿
+namespace BlackHole.Server.Helpers
 {
     public static class ConfigurationHelper
     {
@@ -17,6 +18,24 @@
             }
 
             return configuration.GetValue(key, defaultValue);
+        }
+
+        public static string GetConfigFolder()
+        {
+            string? path = Environment.GetEnvironmentVariable("BLACKHOLE_CONFIG");
+
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                path = Directory.GetCurrentDirectory();
+                path = Path.Combine(path, "config");
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                return path;
+            }
+
+            return path;
         }
     }
 }
