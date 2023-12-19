@@ -8,7 +8,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
 	<DockerfileTag>blackhole</DockerfileTag>
-	<AssemblyVersion>23.12.18</AssemblyVersion>
+	<AssemblyVersion>23.12.19.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

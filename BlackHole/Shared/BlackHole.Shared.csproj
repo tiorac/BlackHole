@@ -4,14 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	 <AssemblyVersion>23.12.18</AssemblyVersion>
+	 <AssemblyVersion>23.12.19.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NovaPasta\" />
   </ItemGroup>
 </Project>
