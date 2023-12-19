@@ -1,27 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>7409ac5d-1cdc-4ba5-8889-7b4a71f613f6</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
-	<DockerfileTag>blackhole</DockerfileTag>
-	<AssemblyVersion>23.12.19.0</AssemblyVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<DockerfileTag>blackhole</DockerfileTag>
+		<TargetFramework>net8.0</TargetFramework>
+		<ProjectVersion>23.12.19.0</ProjectVersion>
+		<DockerfileContext>..\..</DockerfileContext>
+		<AssemblyVersion>23.12.19.0</AssemblyVersion>
+		<DockerServiceName>BlackHole</DockerServiceName>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<UserSecretsId>7409ac5d-1cdc-4ba5-8889-7b4a71f613f6</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="LiteDB" Version="5.0.17" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="YoutubeExplode" Version="6.3.9" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="LiteDB" Version="5.0.17" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+		<PackageReference Include="YoutubeExplode" Version="6.3.9" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Client\BlackHole.Client.csproj" />
-    <ProjectReference Include="..\Shared\BlackHole.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Client\BlackHole.Client.csproj" />
+		<ProjectReference Include="..\Shared\BlackHole.Shared.csproj" />
+	</ItemGroup>
 
 
 </Project>
