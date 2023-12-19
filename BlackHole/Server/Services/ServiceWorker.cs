@@ -18,6 +18,14 @@ namespace BlackHole.Server.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            if (_serviceControl.Processing.Count > 0)
+            {
+                foreach (var item in _serviceControl.Processing)
+                {
+                    item.Progress = null;
+                }
+            }
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (_serviceControl.Processing.Count < limit

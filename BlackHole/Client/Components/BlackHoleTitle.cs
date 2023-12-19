@@ -9,7 +9,7 @@ namespace BlackHole.Client.Components
         public string Title { get; set; }
 
         [Inject]
-        public PageTitleService PageTitleService { get; set; }
+        public MainPageService PageTitleService { get; set; }
 
         protected override void OnInitialized()
         {

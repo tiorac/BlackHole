@@ -1,9 +1,18 @@
 ﻿@page "/"
+@inject QueueService QueueService
+@inject IStringLocalizer<Texts> S
 
 <BlackHoleTitle Title="Home" />
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+        <NavLink href="downloads" class="card card-deck card-home">
+            <header class="card-header">
+                <h3>@S["Downloads"]</h3>
+            </header>
+            <content class="card-body">
+                <p>@(QueueService.GetServices<DownloadData>().Count)</p>
+            </content>
+        </NavLink>
+    </div>
+</div>

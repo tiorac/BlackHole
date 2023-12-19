@@ -29,7 +29,7 @@ namespace BlackHole.Server.Services
         public ReadOnlyCollection<ServiceData> Processing =>
             Queue.Where(s => !s.Error 
                             && s.Progress.HasValue 
-                            && s.Progress.Value > 0
+                            && s.Progress.Value >= 0
                             && !s.IsCompleted)
                  .ToList()
                  .AsReadOnly();

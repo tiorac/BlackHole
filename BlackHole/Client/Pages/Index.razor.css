@@ -1,0 +1,44 @@
+﻿::deep .card-home {
+    color: #212529;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+}
+
+    ::deep .card-home:hover {
+        color: #212529;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+    }
+
+    .card-home h3,
+    .card-home h3:hover,
+    .card-home p,
+    .card-home p:hover {
+        color: #212529;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+    }
+
+.card-home header {
+    width: 100%;
+    text-align: center;
+}
+
+.card-home header h3 {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.card-home content {
+    width: 100%;
+    text-align: center;
+}
+
+.card-home content p {
+    display: inline-block;
+    width: 100%;
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}

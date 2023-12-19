@@ -1,25 +1,29 @@
-﻿namespace BlackHole.Client.Shared
+﻿using Microsoft.AspNetCore.Components;
+
+namespace BlackHole.Client.Shared
 {
     public partial class MainLayout : IDisposable
     {
         private string BrowserTitle { get; set; } = "BlackHole";
         private string Title { get; set; } = "";
+        private RenderFragment? ToolsButtons { get; set; }
 
         override protected void OnInitialized()
         {
-            PageTitleService.OnTitleChanged += OnTitleChanged;
+            PageTitleService.MainPageChanged += MainPageChanged;
         }
 
-        private void OnTitleChanged(string title)
+        private void MainPageChanged()
         {
-            Title = title;
-            BrowserTitle = $"{title} - BlackHole";
+            Title = PageTitleService.Title;
+            BrowserTitle = $"{Title} - BlackHole";
+            ToolsButtons = PageTitleService.ToolsButtons;
             StateHasChanged();
         }
 
         public void Dispose()
         {
-            PageTitleService.OnTitleChanged -= OnTitleChanged;
+            PageTitleService.MainPageChanged -= MainPageChanged;
         }
     }
 }

@@ -63,6 +63,9 @@ namespace BlackHole.Server.Services.Downloads
             }
 
             await downloadStream.CopyToAsync(fileStream, 81920, progress, cancellationToken);
+
+            downloadData.Progress = 100;
+            CallUpdated(downloadData, updated);
         }
 
         private static void CallUpdated(DownloadData downloadData, Action<ServiceData>? updated)

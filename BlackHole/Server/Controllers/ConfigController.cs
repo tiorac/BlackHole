@@ -15,7 +15,7 @@ namespace BlackHole.Server.Controllers
             {
                 { "Version", Assembly.GetExecutingAssembly()?.GetName()?.Version?.ToString() ?? "" },
                 { "OS", Environment.OSVersion.ToString() },
-                { "MachineName", Environment.MachineName },
+                { "Machine Name", Environment.MachineName },
                 { "Config Folder", ConfigurationHelper.GetConfigFolder() },
                 { "DB File", BaseRepository.GetFileName() }
             };

@@ -9,6 +9,9 @@ namespace BlackHole.Client.Components
         [Inject]
         public ClipboardService Clipboard { get; set; }
 
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
         [Parameter]
         public string Url { get; set; }
 
@@ -32,7 +35,10 @@ namespace BlackHole.Client.Components
             try
             {
                 Url = string.Empty;
-                string text = await Clipboard.ReadTextAsync();
+                string? text = null;
+
+                if (Navigation?.Uri?.ToLower().StartsWith("https") ?? false)
+                    text = await Clipboard.ReadTextAsync();
 
                 if (!string.IsNullOrWhiteSpace(text) 
                     && IsUrl(text)
@@ -56,8 +62,16 @@ namespace BlackHole.Client.Components
 
         private bool IsUrl(string url)
         {
-            return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult)
-                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+            if (url == null)
+                return false;
+
+            if (url.Contains("\n"))
+            {
+                return url.Replace("\r", "").Split("\n").All(u => IsUrl(u));
+            }
+            else
+                return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult)
+                    && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
         }
 
         private async void FinalizeAddUrl()

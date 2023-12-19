@@ -1,4 +1,5 @@
 ﻿@page "/system"
+@inject IStringLocalizer<Texts> S
 
 <BlackHoleTitle Title="System" />
 
@@ -6,6 +7,6 @@
 {
     @foreach (var c in Config)
     {
-        <p><strong>@(c.Key)</strong>: @(c.Value)</p>
+        <p><strong>@(S.Get(c.Key))</strong>: @(c.Value)</p>
     }
 }

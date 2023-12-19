@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject IStringLocalizer<Texts> S
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlackHole</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -11,17 +13,17 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <h5 class="mr-2"><i class="bi bi-house-fill"></i></h5>@S["Home"]
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="download">
-                <span class="oi oi-data-transfer-download" aria-hidden="true"></span> Download
+            <NavLink class="nav-link" href="downloads">
+                <h5 class="mr-2"><i class="bi bi-download"></i></h5>@S["Downloads"]
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="system">
-                <span class="oi oi-cog" aria-hidden="true"></span> Sistema
+                <h5 class="mr-2"><i class="bi bi-info-circle"></i></h5>@S["System"]
             </NavLink>
         </div>
     </nav>

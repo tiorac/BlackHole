@@ -1,0 +1,67 @@
+﻿@inject IStringLocalizer<Texts> S
+
+<div class="card mt-2 p-2">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4 d-flex align-items-center">
+            <p>
+                <strong>@Download.FileNameWithoutExtension</strong>
+                @if (Download.Error)
+                {
+                    <span class="badge badge-danger ml-2">
+                        @S.Get(Download.ErrorMessage)
+                    </span>
+                }
+                else if (Download.IsCompleted)
+                {
+                    <span class="badge badge-success ml-2">@S["Downloaded"]</span>
+                }
+                else if (Download.Progress.HasValue)
+                {
+                    <span class="badge badge-info ml-2">@Download.Progress.Value.ToString("0")%</span>
+                }
+                else
+                {
+                    <span class="badge badge-info ml-2">@S["Waiting"]</span>
+                }
+            </p>
+        </div>
+        <div class="col-12 col-sm-6 d-flex align-items-center">
+            <p>
+                <small>
+                    @Download.OriginUrl
+                </small>
+                <br />
+                <small>@Download.PathDestination</small>
+            </p>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
+            @if (Download.Progress.HasValue && !Download.Error && !Download.IsCompleted)
+            {
+                <div class="progress w-100">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                         style="@($"width: {Download.Progress ?? 0}%")" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            else if (Download.IsCompleted)
+            {
+                <a href="@($"/api/download/{Download.Id}/{Download.FileName}")"
+                   class="btn btn-info mr-2" download="download" title="@(Download.FileName)">
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                </a>
+                <button type="button" class="btn btn-danger" 
+                        title="@S["Delete"]"
+                        @onclick="() => DeleteDownload(Download.Id)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            }
+            else if (Download.Error)
+            {
+                <button type="button" class="btn btn-danger"
+                        title="@S["Delete"]"
+                        @onclick="() => DeleteDownload(Download.Id)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            }
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿@using BlackHole.Client.Services
 @inherits LayoutComponentBase
-@inject PageTitleService PageTitleService
+@inject MainPageService PageTitleService
 
 <div class="page">
     <div class="sidebar">
@@ -12,7 +12,12 @@
             <PageTitle>@BrowserTitle</PageTitle>
             <h1>@Title</h1>
         </div>
-
+        @if (ToolsButtons != null)
+        {
+            <div class="top-row px-4">
+                @ToolsButtons
+            </div>
+        }
         <article class="content px-4">
             @Body
         </article>

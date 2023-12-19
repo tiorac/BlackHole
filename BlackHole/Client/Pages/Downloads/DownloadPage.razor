@@ -1,0 +1,12 @@
+﻿@page "/downloads"
+@inject IStringLocalizer<Texts> S
+
+<BlackHoleTitle Title="@S["Downloads"]" />
+<BlackHoleTools>
+    <AddUrl UrlAdded="UrlToDownload" CanAddUrl="CanAddUrl" />
+</BlackHoleTools>
+
+@foreach (var download in Downloads)
+{
+    <DownloadLine Download="download" />
+}
