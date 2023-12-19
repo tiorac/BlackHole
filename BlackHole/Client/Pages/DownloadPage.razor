@@ -1,57 +1,68 @@
 ﻿@page "/download"
 
-<AddUrl UrlAdded="UrlToDownload" CanAddUrl="CanAddUrl" />
+<BlackHoleTitle Title="Downloads" />
 
-<div class="row">
-    <h3>Downloads</h3>
+<div class="row tools">
+    <div class="col-12">
+        <AddUrl UrlAdded="UrlToDownload" CanAddUrl="CanAddUrl" />
+    </div>
 </div>
 
-<div class="row">
-    @foreach (var download in Downloads)
-    {
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="card">
-                <header class="card-header">
-                    <h4>@download.FileNameWithoutExtension</h4>
-                        @if (download.Progress.HasValue && !download.Error && !download.IsCompleted)
-                        {
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                     style="@($"width: {download.Progress ?? 0}%")" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        }
-                        else if (download.Error)
-                        {
-                            <span class="badge badge-danger">
-                                @download.ErrorMessage
-                            </span>
-                        }
-                        else if (download.IsCompleted)
-                        {
-                            <span class="badge badge-success">Downloaded</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-info">Waiting</span>
-                        }
-                </header>
-                <content class="card-body">
-                    <p>Teste</p>
-
-                
-                </content>
-                <footer class="card-footer">
-                    @if (download.IsCompleted)
+@foreach (var download in Downloads)
+{
+    <div class="card mt-2 p-2">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-4 d-flex align-items-center">
+                <p>
+                    <strong>@download.FileNameWithoutExtension</strong>
+                    @if (download.Error)
                     {
-                        <button type="button" class="btn btn-danger" @onclick="() => DeleteDownload(download.Id)">
-                            <span class="oi oi-trash" aria-hidden="true"></span>
-                        </button>
-                        <a href="@($"/api/download/{download.Id}/{download.FileName}")" class="btn btn-info" download="download">
-                            <span class="oi oi-data-transfer-download" aria-hidden="true"></span>
-                        </a>
+                        <span class="badge badge-danger ml-2">
+                            @download.ErrorMessage
+                        </span>
                     }
-                </footer>
+                    else if (download.IsCompleted)
+                    {
+                        <span class="badge badge-success ml-2">Downloaded</span>
+                    }
+                    else if (download.Progress.HasValue)
+                    {
+                        <span class="badge badge-info ml-2">@download.Progress.Value.ToString("0")%</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info ml-2">Waiting</span>
+                    }
+                </p>
+            </div>
+            <div class="col-12 col-sm-6 d-flex align-items-center">
+                <p>
+                    <small>
+                        @download.OriginUrl
+                    </small>
+                    <br />
+                    <small>@download.PathDestination</small>
+                </p>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
+                @if (download.Progress.HasValue && !download.Error && !download.IsCompleted)
+                {
+                    <div class="progress w-100">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                             style="@($"width: {download.Progress ?? 0}%")" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                }
+                else if (download.IsCompleted)
+                {
+                    <a href="@($"/api/download/{download.Id}/{download.FileName}")" 
+                        class="btn btn-info mr-2" download="download">
+                        <span class="oi oi-data-transfer-download" aria-hidden="true"></span>
+                    </a>
+                    <button type="button" class="btn btn-danger" @onclick="() => DeleteDownload(download.Id)">
+                        <span class="oi oi-trash" aria-hidden="true"></span>
+                    </button>
+                }
             </div>
         </div>
-    }
-</div>
+    </div>
+}
